@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.10)
+
+project(ray_tracer1 VERSION 0.1)
+
+file(GLOB_RECURSE sources "src/*.cpp")
+add_executable(ray_tracer1 ${sources})
+
+set_property(TARGET ray_tracer1 PROPERTY CXX_STANDARD 20)
+
+target_link_libraries(ray_tracer1 glfw3)
+target_link_libraries(ray_tracer1 glew32)
+target_link_libraries(ray_tracer1 opengl32)
