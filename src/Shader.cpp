@@ -47,10 +47,11 @@ void Shader::compile(const std::string& shaderName) {
   glGetProgramiv(programID, GL_INFO_LOG_LENGTH, &errorLogSize);
 
   if(errorLogSize > 0) {
-    std::string errorMessage;
-    errorMessage.reserve(errorLogSize);
-    glGetProgramInfoLog(programID, errorMessage.size(), NULL, errorMessage.data());
-    std::fprintf(stderr, "Error compiling program %s\n", errorMessage.c_str());
+    auto errorMessage = std::make_unique<char[]>(errorLogSize);
+    glGetProgramInfoLog(programID, errorLogSize, NULL, errorMessage.get());
+
+    std::fprintf(stderr, "Compiling program logs:\n");
+    std::fprintf(stderr, "%s\n", errorMessage.get());
   }
 }
 
